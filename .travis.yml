@@ -1,0 +1,7 @@
+language: scala
+
+env:
+  - PARADOX_LANGUAGE=java
+  - PARADOX_LANGUAGE=scala
+
+script: sbt test paradox
