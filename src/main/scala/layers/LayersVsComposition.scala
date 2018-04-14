@@ -56,44 +56,82 @@ object Layers {
 
 object OutWithTheLayers {
   object FunctionalLayers {
+    //#data-without
     case class Person(name: String)
     case class Customer(customerNumber: Int, p: Person)
+    //#data-without
 
     type HttpRequest = String
     type HttpResponse = String
+
+    //#request-type-func
     type WebRequest = HttpRequest => HttpResponse
+    //#request-type-func
 
-    val serialiseCustomer: Customer => String = ???
-    val deSerialisePerson: String => Person = ???
+    //#serialize-func
+    val serialiseCustomer: Customer => HttpResponse = ???
+    //#serialize-func
 
-    def createCustomer(p: Person): Customer = {
-      // remove the saving logic
-      Customer(1, p)
-    }
+    //#de-serialize-func
+    val deSerialisePerson: HttpRequest => Person = ???
+    //#de-serialize-func
 
-    def saveCustomer(c: Customer): Customer = {
-      // do DB stuff, we'll deal with failure in a later post
-      c
-    }
+    //#customer-func
+    val createCustomer: Person => Customer = ???
+    //#customer-func
 
+
+    //#db-func
+    val saveCustomer: Customer => Customer = ???
+    //#db-func
+
+    //#full-request-function
     val registerCustomer: WebRequest =
       deSerialisePerson andThen
         createCustomer andThen
         saveCustomer andThen
         serialiseCustomer
+    //#full-request-function
   }
 
 }
 
 object FunctionComposition {
 
-  def add(x: Int, y: Int) = x + y
+  {
+    //#add
+    def add(x: Int, y: Int) = x + y
+    //#add
+  }
 
-  def add10 = (x: Int) => add(x, 10)
+  {
+    //#add10
+    def add10(x: Int) = add(x, 10)
+    //#add10
+  }
 
-  val add10Curried = (add _).curried(10)
+  {
+    //#add10-curried
+    val add10Curried = (add _).curried(10)
+    //#add10-curried
+  }
 
+
+  //#add-curried
   def addCurried(x: Int)(y: Int): Int = x + y
+  //#add-curried
 
-  val whatTypeAmI = addCurried(10) _
+
+  {
+    //#what-type
+    val whatTypeAmI = addCurried(10) _
+    //#what-type
+  }
+
+  {
+    //#what-type2
+    val whatTypeAmI: Int => Int = addCurried(10) _
+    //#what-type2
+  }
+
 }

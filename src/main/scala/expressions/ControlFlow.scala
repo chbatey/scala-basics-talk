@@ -1,4 +1,4 @@
-package scala.ss
+package expressions
 
 class ControlFlow {
 

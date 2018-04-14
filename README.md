@@ -2,6 +2,9 @@
 
 This repo contains all the resources associated with my talk "Scala: Beyond the basics"
 
+I covers various aspects comparing it to Java. Highlighting where language features can be used
+instead of boiler plate and reflection.
+
 ## Generating
 
 `sbt paradox` will generate the presentation and place it in

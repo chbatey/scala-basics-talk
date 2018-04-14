@@ -9,13 +9,13 @@ public class LayersVsComposition {
   //#add
 
   //#add10
-  public static int add10(int x) {
+  public static int add10NoReuses(int x) {
     return x + 10;
   }
   //#add10
 
   //#add10-reuse
-  public static int add10Take2(int x) {
+  public static int add10(int x) {
     return add(x, 10);
   }
   //#add10-reuse
