@@ -1,5 +1,6 @@
 package layers
 
+import Layers._
 
 object Layers {
   //#data
@@ -56,17 +57,6 @@ object Layers {
 
 object OutWithTheLayers {
   object FunctionalLayers {
-    //#data-without
-    case class Person(name: String)
-    case class Customer(customerNumber: Int, p: Person)
-    //#data-without
-
-    type HttpRequest = String
-    type HttpResponse = String
-
-    //#request-type-func
-    type WebRequest = HttpRequest => HttpResponse
-    //#request-type-func
 
     //#serialize-func
     val serialiseCustomer: Customer => HttpResponse = ???
@@ -79,7 +69,6 @@ object OutWithTheLayers {
     //#customer-func
     val createCustomer: Person => Customer = ???
     //#customer-func
-
 
     //#db-func
     val saveCustomer: Customer => Customer = ???
@@ -98,11 +87,9 @@ object OutWithTheLayers {
 
 object FunctionComposition {
 
-  {
-    //#add
-    def add(x: Int, y: Int) = x + y
-    //#add
-  }
+  //#add
+  def add(x: Int, y: Int) = x + y
+  //#add
 
   {
     //#add10

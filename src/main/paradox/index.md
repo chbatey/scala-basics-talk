@@ -339,7 +339,7 @@ http://batey.info/fs-function-composition
 
 @@@section
 
-@@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){ #request-type-func }
+@@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){#web-request}
 @@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){ #de-serialize-func .fragment }
 @@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){ #customer-func .fragment }
 @@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){ #db-func .fragment }
@@ -350,9 +350,59 @@ http://batey.info/fs-function-composition
 @@@section
 
 @@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){ #full-request-function }
-@@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){ #request-type-func .fragment }
+@@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){#web-request}
+
+@@@@notes
+
+* Func composition not always so easy
+* More realistically we need DI as well e.g. where does out database connection come from?
+
+@@@@
 
 @@@
+
+@@@section
+
+## Currying + Partial application to the rescue
+
+@@@@notes
+
+* Monadic ways as well.
+* Will link resources
+
+@@@@
+
+@@@
+
+@@@section
+
+@@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-pa }
+@@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-pa-use .fragment }
+
+@@@
+
+@@@section
+
+@@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){ #full-request-function }
+@@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){#web-request}
+
+@@@
+
+@@@section
+
+@@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-class }
+@@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-class-use .fragment }
+
+@@@
+
+@@@section
+
+@@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-implicit }
+@@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-implicit-use .fragment }
+@@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-implicit-define .fragment }
+
+@@@
+
 
 @@@section
 

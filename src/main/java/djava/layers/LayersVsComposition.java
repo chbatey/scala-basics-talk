@@ -34,7 +34,7 @@ public class LayersVsComposition {
 
   //#composition
   public static int addTenThenMultiplyByTen(int x) {
-    return multiplyBy10(add10Take2(x));
+    return multiplyBy10(add10(x));
   }
   //#composition
 }
