@@ -82,7 +82,6 @@ object OutWithTheLayers {
         serialiseCustomer
     //#full-request-function
   }
-
 }
 
 object FunctionComposition {
@@ -90,6 +89,7 @@ object FunctionComposition {
   //#add
   def add(x: Int, y: Int) = x + y
   //#add
+
 
   {
     //#add10
@@ -117,8 +117,24 @@ object FunctionComposition {
 
   {
     //#what-type2
-    val whatTypeAmI: Int => Int = addCurried(10) _
+    val whatTypeAmI: Int => Int = addCurried(10)
     //#what-type2
+  }
+
+  {
+    //#composition-1
+    def add(x: Int)(y: Int): Int = x + y
+    //#composition-1
+    //#composition-2
+    def multiply(x: Int)(y: Int): Int = x * y
+    //#composition-2
+    //#composition-3
+    val add10multiply10Compose: Int => Int =
+        multiply(10) _ compose add(10)
+    //#composition-3
+    //#composition-4
+    val add10multiply10 = add(10) _ andThen multiply(10)
+    //#composition-4
   }
 
 }

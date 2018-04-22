@@ -1,0 +1,6 @@
+package higherkinds
+
+object HigherKinds {
+
+
+}

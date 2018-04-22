@@ -19,3 +19,9 @@ The paradox theme in `src/main/paradox/_theme` formats the output as a
 as a separate deliverable if it proves useful. The reveal.js theme in
 `src/main/paradox/_template/css/theme/akka.css adds some Akka fonts and colors.
 
+## TODO
+
+Maybe not include of these:
+* Example of OO vs FP
+* Example of parametric polymorphism
+

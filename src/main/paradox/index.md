@@ -182,6 +182,23 @@ Notes
 
 @@@section
 
+## Referential transparency
+
+@@snip[x]($root$/src/main/scala/expressions/ReferentialTransparency.scala){#x}
+@@snip[x]($root$/src/main/scala/expressions/ReferentialTransparency.scala){#y .fragment}
+@@snip[x]($root$/src/main/scala/expressions/ReferentialTransparency.scala){#x-good .fragment}
+@@snip[x]($root$/src/main/scala/expressions/ReferentialTransparency.scala){#x-bad .fragment}
+
+@@@@notes
+
+* E.g hitting a database
+
+@@@@
+
+@@@
+
+@@@section
+
 * Example of OO
 
 @@@
@@ -227,11 +244,8 @@ http://batey.info/fs-function-composition
 @@@section
 
 @@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){#web-request}
-
 @@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){#data .fragment}
-
 @@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){#serialisation .fragment}
-
 @@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){#controller .fragment}
 
 @@@
@@ -287,10 +301,25 @@ http://batey.info/fs-function-composition
 
 @@@section
 
+@@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){ #composition-1 }
+@@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){ #composition-2 .fragment}
+@@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){ #composition-3 .fragment}
+@@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){ #composition-4 .fragment}
+
+@@@@notes
+
+Notes
+
+@@@@
+
+@@@
+
+@@@section
+
 ## Currying
 
-* Each function takes one argument
-* Allows partial application
+* Each function a single argument
+* Enabled partial application
 
 @@@
 
@@ -376,7 +405,8 @@ http://batey.info/fs-function-composition
 
 @@@section
 
-@@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-pa }
+@@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-pa-con }
+@@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-pa .fragment }
 @@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-pa-use .fragment }
 
 @@@
@@ -393,6 +423,12 @@ http://batey.info/fs-function-composition
 @@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-class }
 @@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-class-use .fragment }
 
+@@@@notes
+
+* Scala is a FP-OO hybrid
+
+@@@@
+
 @@@
 
 @@@section
@@ -401,20 +437,286 @@ http://batey.info/fs-function-composition
 @@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-implicit-use .fragment }
 @@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-implicit-define .fragment }
 
+@@@@notes
+
+Implicits have to be explicitly in scope
+
+@@@@
+
+@@@
+
+@@@section
+
+## Section summary
+* Techniques
+    * Function Composition
+    * Currying
+    * Partial Application
+* Benefits
+    * Reduced need for mocking
+    * Reduced need for a DI framework
+
+@@@@notes
+
+* Learning a language/compiler vs learning a reflection framework
+
+@@@@
+
+@@@
+
+@@@section
+
+# Higher kinded types
+
+http://batey.info/???
+
+@@@
+
+@@@section
+
+```java
+String
+int
+Person
+Customer
+```
+
+vs
+
+
+```java
+List<T>
+Iterable<T>
+```
+
+@@@@notes
+
+Notes
+
+@@@@
+
+@@@
+
+@@@section
+
+```java
+List<T> :: T -> List<T>
+String -> List<String>
+```
+
+List is a type level function takes a type and produces a concrete type
+
+```java
+Map<K, V>
+```
+
+Map takes two types and produces a concrete type
+
+@@@@notes
+
+* Java generics break this for compatibility
+
+@@@@
+
 @@@
 
 
 @@@section
 
-##TODO
+## Abstracting over higher kinded types
 
-* Exaplain functiono as val vs def
-* Representing constraints with implicits
+@@@@notes
+
+* Abstract over the inner type e.g. the T in List<T>
+* How about the list?
+
+@@@@
 
 @@@
 
+@@@section
+
+## Motivation
+
+@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #web-request .fragment }
+
+@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #web-request-2 .fragment }
+
+@@@@notes
+
+* Async
+* Not using exceptions
+
+@@@@
+
+@@@
+
+@@@section
+
+@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #web-request .fragment }
+@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #serialize-func .fragment }
+@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #customer-func .fragment }
+@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #db-func .fragment }
+@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #deserialise-create .fragment }
 
 
+@@@@notes
+
+* Async
+* Not using exceptions
+
+@@@@
+
+@@@
+
+@@@section
+
+```scala
+def flatMap(f: A => Future[B]): Future[B]
+```
+
+@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #save .fragment }
+
+@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #full .fragment }
+
+@@@@notes
+
+* Async
+* Not using exceptions
+
+@@@@
+
+@@@
+
+@@@section
+
+@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #full2 }
+
+@@@@notes
+
+Notes
+
+@@@@
+
+@@@
+
+@@@section
+
+### Ready to do all this again with Either?
+
+@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #abstracted .fragment }
+@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #mappable .fragment }
+
+@@@@notes
+
+Notes
+
+@@@@
+
+@@@
+
+@@@section
+
+### How useful is this?
+
+* Ratpack Promise
+* Hystrix: RxJava Observable
+* Cassandra database driver: Guava Listenable Future
+* Java8's Completable Future
+
+@@@@notes
+
+Notes
+
+@@@@
+
+@@@
+
+@@@section
+
+# Implicits
+
+http://batey.info/???
+
+@@@
+
+@@@section
+
+## Which implicit feature don't you like?
+
+@@@
+
+@@@section
+
+## Implicits
+
+@span[Many sensible uses of implicits replace reflection]
+@span[Reflection is more implicit than implicits!!] { .fragment }
+
+@@@
+
+@@@section
+
+## Implicit parameters
+
+@@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-implicit }
+@@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-implicit-use .fragment }
+@@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-implicit-define .fragment }
+
+@@@
+
+@@@section
+
+## Implicit type conversions
+
+@@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #classes }
+@@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #clean .fragment }
+@@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #ruby .fragment }
+
+@@@
+
+@@@section
+
+TODO lots of pictures of ruby
+
+@@@
+
+@@@section
+
+## Implicit type conversions
+
+@@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #classes }
+@@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #clean }
+@@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #ruby }
+@@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #cleaning .fragment }
+@@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #implicit .fragment }
+
+@@@
+
+@@@section
+
+## Principled type conversions
+
+@@@
+
+@@@section
+
+
+@@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #mappable }
+@@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #future-mappable .fragment }
+@@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #cf-mappable .fragment }
+
+@@@
+
+@@@section
+
+# Embedded DSLs
+
+http://batey.info/???
+
+@@@
+
+@@@section
 
 @@@section
 
