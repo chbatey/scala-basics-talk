@@ -13,7 +13,11 @@
 
 Open Source toolkit for building Concurrent, Distributed, Resilient Message-Driven applications on the JVM
 
-@notes[Akka grew out of the realization, circa 2009, that threads are a heavyweight abstraction that is hard to make resilient. Inspired by Erlang, asynchronous model, actor model, but not covering that today.]
+@@@@notes
+
+Wakka
+
+@@@@
 
 @@@
 
@@ -21,10 +25,10 @@ Open Source toolkit for building Concurrent, Distributed, Resilient Message-Driv
 
 Agenda:
 
-1. Programming Language basics
-1. Concurrency
-1. Function composition vs dependencies
-1. Error handling + higher kinded types
+1. Programming Languages
+1. Function composition instead of layers
+1. Abstracting over higher kinded types
+1. Compile time implicits vs runtime reflection
 
 @@@@notes
 
@@ -175,8 +179,8 @@ Notes
 
 ## Immutability
 
-* Object orientation. Abstraction over data, provide behaviour.
-* Functional. Immutable data. Abstract over functions.
+* Object orientation. Abstract data, provide behaviour.
+* Functional. Immutable data. Abstract functions.
 
 @@@
 
@@ -196,41 +200,6 @@ Notes
 @@@@
 
 @@@
-
-@@@section
-
-* Example of OO
-
-@@@
-
-@@@section
-
-* Example of functional 
-
-@@@
-
-@@@section
-
-* Extreme example of parametric polymorphism 
-
-@@@
-
-@@@section
-
-* The more abstract a function the fewer implementations there are
-* Link to John De Goes
-
-@@@
-
-
-
-
-@@@section
-
-* Something awesome about concurrency
-
-@@@
-
 
 @@@section
 
@@ -414,7 +383,7 @@ Notes
 @@@section
 
 @@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){ #full-request-function }
-@@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){#web-request}
+@@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){ #web-request}
 
 @@@
 
@@ -426,6 +395,7 @@ Notes
 @@@@notes
 
 * Scala is a FP-OO hybrid
+* Think of classes as two argument lists: constructor + methods
 
 @@@@
 
@@ -440,6 +410,7 @@ Notes
 @@@@notes
 
 Implicits have to be explicitly in scope
+This happens when we "partially apply it"
 
 @@@@
 
@@ -583,6 +554,7 @@ def flatMap(f: A => Future[B]): Future[B]
 
 * Async
 * Not using exceptions
+* Popular libraries in Scala for doing this type of function composition
 
 @@@@
 
@@ -591,6 +563,30 @@ def flatMap(f: A => Future[B]): Future[B]
 @@@section
 
 @@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #full2 }
+
+@@@@notes
+
+Notes
+
+@@@@
+
+@@@
+
+@@@section
+
+```scala
+f: A => Future[B]
+g: B => Future[C]
+
+g <=< g : A => Future[C]
+
+lift(fa: A => B): Future[A] => Future[B]
+
+```
+
+http://eed3si9n.com/herding-cats/composing-monadic-functions.html
+
+https://underscore.io/books/scala-with-cats/
 
 @@@@notes
 
@@ -663,6 +659,13 @@ http://batey.info/???
 @@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-implicit-use .fragment }
 @@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-implicit-define .fragment }
 
+@@@@notes
+
+* Spark uses this for the SparkContext
+* ActorMaterializer
+
+@@@@
+
 @@@
 
 @@@section
@@ -677,7 +680,13 @@ http://batey.info/???
 
 @@@section
 
-TODO lots of pictures of ruby
+<img src="images/ruby1.jpeg" style="width: 500px;"/>
+
+@@@
+
+@@@section
+
+<img src="images/bella1.jpeg" style="width: 700px;"/>
 
 @@@
 
@@ -690,6 +699,13 @@ TODO lots of pictures of ruby
 @@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #ruby }
 @@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #cleaning .fragment }
 @@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #implicit .fragment }
+
+
+@@@@notes
+
+* Could have a place inside embedded DSLs
+
+@@@@
 
 @@@
 
@@ -706,17 +722,92 @@ TODO lots of pictures of ruby
 @@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #future-mappable .fragment }
 @@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #cf-mappable .fragment }
 
+@@@@notes
+
+* Trait that is only converted to implicitly.
+* Find all instances
+
+@@@@
+
 @@@
 
 @@@section
 
-# Embedded DSLs
+### Implicit evidence
 
-http://batey.info/???
+@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #request-before .fragment }
+
+@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #api-example .fragment }
+
+@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #execute .fragment }
+
+
+@@@@notes
+
+* Grpc, single input type "message"
+
+@@@@
 
 @@@
 
 @@@section
+
+@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #request-before-unit  }
+@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #request-before-no-param .fragment }
+
+@@@@notes
+
+Notes
+
+@@@@
+
+@@@
+
+@@@section
+
+@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #request-type  }
+
+@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #no-compile .fragment  }
+
+@span[`Cannot prove that String =:= Unit. liftedCall.invoke()`] { .fragment }
+
+@@@@notes
+
+Notes
+
+@@@@
+
+@@@
+
+@@@section
+
+Guidelines for a successful Scala project
+
+* Pick a programming paradigm
+* Pick a style guideline
+* Pick a DI style
+* Include static analysis
+
+@@@@notes
+
+* Guide should dictate use of implicits
+* Wart remover
+
+@@@@
+
+@@@
+
+@@@section
+
+### Summary
+
+1. Programming Language
+1. Function composition instead of layers
+1. Abstracting over higher kinded types
+1. Compile time implicits vs runtime reflection
+
+@@@
+
 
 @@@section
 

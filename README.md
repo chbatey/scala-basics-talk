@@ -25,3 +25,9 @@ Maybe not include of these:
 * Example of OO vs FP
 * Example of parametric polymorphism
 
+Possible extras:
+* Maths implicit example
+* Dependently pathed types
+* Dependent types
+* Embedded DSLs
+

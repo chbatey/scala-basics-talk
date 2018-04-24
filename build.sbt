@@ -8,9 +8,9 @@ libraryDependencies ++= Seq(
 )
 
 enablePlugins(GatlingPlugin)
-
 enablePlugins(ParadoxRevealPlugin)
 
 paradoxGroups := Map("Language" -> Seq("Scala", "Java"))
-
 paradoxProperties += ("selectedLanguage" → sys.env.getOrElse("PARADOX_LANGUAGE", "Scala"))
+
+paradox := (Compile / paradox dependsOn Compile / compile).value
