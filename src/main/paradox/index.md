@@ -30,12 +30,17 @@ Agenda:
 1. Abstracting over higher kinded types
 1. Compile time implicits vs runtime reflection
 
+Things I would have liked to covered:
+
 @@@@notes
 
 What to expect
+* Increasingly more complex
+* Scala being a hybrid language really excels
+* I used to say you wrote two kinds of Scala
+* A huge use case becoming popular in Java, async programming
 
-* Cats
-* Dogs
+
 
 @@@@
 
@@ -50,10 +55,26 @@ I am sorry :(
 
 @@@section
 
+## Scala is a Hybrid Functional / OO language
+
+@@@@notes
+
+* Akka can be very functional/immutable and drop down to imperative
+* Vocal pure FP ppl who wish Scala was Haskell
+* Only using it as a "better java". Maybe kotlin is a better?
+* Unique features. path dependent types, implicits
+
+@@@@
+
+@@@
+
+@@@section
+
 ## 1.Programming Languages 
 
 @@@@notes
 
+Starting off really simple
 Semantics vs syntax
 
 @@@@
@@ -63,7 +84,28 @@ Semantics vs syntax
 
 @@@section
 
-## Semantics vs Syntax 
+## Semantics vs Syntax
+
+@@@@notes
+
+* You can learn the semantics of a language in a discussion with someone
+* Syntax takes lots of typing
+* Unfamiliar syntax != complexity
+* Think how long you've been using one language's syntax!
+
+@@@@
+
+@@@
+
+@@@section
+
+## Unfamiliar syntax != complexity
+
+@@@@notes
+
+* Fight our natural reaction
+
+@@@@
 
 @@@
 
@@ -83,7 +125,8 @@ if (x > 0) {
 
 @@@@notes
 
-Notes
+* Only code that does not compile
+* Control flow operators in java are statement based
 
 @@@@
 
@@ -97,7 +140,7 @@ Notes
 
 @@@@notes
 
-Notes
+* Variables or values the default
 
 @@@@
 
@@ -173,6 +216,13 @@ Notes
 
 ## Immutability
 
+@@@@notes
+
+A language's default for this is important
+simplicity is subjective
+
+@@@@
+
 @@@
 
 @@@section
@@ -181,6 +231,12 @@ Notes
 
 * Object orientation. Abstract data, provide behaviour.
 * Functional. Immutable data. Abstract functions.
+
+@@@@notes
+
+OO immutable is fine
+
+@@@@
 
 @@@
 
@@ -195,7 +251,10 @@ Notes
 
 @@@@notes
 
+* Recent blog post
 * E.g hitting a database
+* Latency
+* Do i compose my software with functions or objects?
 
 @@@@
 
@@ -207,6 +266,15 @@ Notes
 
 http://batey.info/fs-function-composition
 
+@@@@notes
+
+* FC allows us to compose our systems via separately functions
+* Functions that are tested independently
+* Functions that may be pure
+* They might be methods on objects mu haw ha
+
+@@@@
+
 @@@
 
 
@@ -217,12 +285,29 @@ http://batey.info/fs-function-composition
 @@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){#serialisation .fragment}
 @@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){#controller .fragment}
 
+@@@@notes
+
+Realistic example
+Case classes change the way people program
+Being flexible with class location in files
+See whole domain in a page
+
+@@@@
+
 @@@
 
 @@@section
 
 @@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){ #service }
 @@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){ #repo .fragment }
+
+@@@@notes
+
+* Layered appraoch
+* DI
+* Mocking between abstraction layers
+
+@@@@
 
 @@@
 
@@ -233,6 +318,7 @@ http://batey.info/fs-function-composition
 @@@@Notes
 
 * You then feel obliged to test it
+* Regardless of paradigm use language features rather than writing boiler plate
 
 @@@@
 
@@ -288,7 +374,13 @@ Notes
 ## Currying
 
 * Each function a single argument
-* Enabled partial application
+* Enables partial application
+
+@@@@notes
+
+Scala actually allows arbitrary parameter lists
+
+@@@@
 
 @@@
 
@@ -297,6 +389,14 @@ Notes
 ## Partial application
 
 * Provide a subset of the parameters to get a new function
+
+@@@@notes
+
+Why is this important?
+World is not made up of add and multiply function
+Need ways of massaging our functions so they compose
+
+@@@@
 
 @@@
 
@@ -326,6 +426,12 @@ Notes
 
 @@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){#controller}
 
+@@@@notes
+
+Same code as before
+
+@@@@
+
 @@@
 
 @@@section
@@ -343,6 +449,13 @@ Notes
 @@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){ #db-func .fragment }
 @@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){ #serialize-func .fragment }
 
+@@@@notes
+
+This is what we want to get to
+Assuming implemented how do we structure our app now?
+
+@@@@
+
 @@@
 
 @@@section
@@ -352,8 +465,12 @@ Notes
 
 @@@@notes
 
-* Func composition not always so easy
-* More realistically we need DI as well e.g. where does out database connection come from?
+* Completely independent
+* Don't depend on each other
+* Only the types have to line up
+* Are we done??
+* Func comp not always so easy
+* realistically we need DI as well e.g. where does out database connection come from?
 
 @@@@
 
@@ -378,6 +495,14 @@ Notes
 @@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-pa .fragment }
 @@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-pa-use .fragment }
 
+@@@@notes
+
+* Objects as grouping functions. Static.
+* This has broken our function composition
+* Main can wire these things together
+
+@@@@
+
 @@@
 
 @@@section
@@ -396,6 +521,7 @@ Notes
 
 * Scala is a FP-OO hybrid
 * Think of classes as two argument lists: constructor + methods
+* If no member variables
 
 @@@@
 
@@ -441,6 +567,11 @@ This happens when we "partially apply it"
 
 http://batey.info/???
 
+@@@@notes
+
+* Abstracting over them is an advanced feature
+@@@@
+
 @@@
 
 @@@section
@@ -462,7 +593,7 @@ Iterable<T>
 
 @@@@notes
 
-Notes
+Regular types vs types that need some more types to be types
 
 @@@@
 
@@ -500,6 +631,52 @@ Map takes two types and produces a concrete type
 
 * Abstract over the inner type e.g. the T in List<T>
 * How about the list?
+* Same code dealing with a List and an Optional
+
+@@@@
+
+@@@
+
+@@@section
+
+Abstract over a type:
+
+```java
+List<A>
+```
+
+Abstract over a type constructor:
+
+```java
+T<Int>
+```
+Why not both?
+
+```java
+T<A>
+```
+
+
+@@@@notes
+
+Write a method that takes a List<Int>
+Or a Set<Int>
+With interfaces ^
+Or a Optional<Int>
+Hrmm? ^^
+What about a Future?
+
+@@@@
+
+@@@
+
+@@@section
+
+![x](images/say-what.jpg)
+
+@@@@notes
+
+Notes
 
 @@@@
 
@@ -515,8 +692,9 @@ Map takes two types and produces a concrete type
 
 @@@@notes
 
-* Async
-* Not using exceptions
+* My background is not in languages that support this
+* Async, not a thread per request
+* Not using exceptions. GOto with a different name
 
 @@@@
 
@@ -533,8 +711,8 @@ Map takes two types and produces a concrete type
 
 @@@@notes
 
-* Async
-* Not using exceptions
+* Broken our function composition
+* DAMNNATIONS
 
 @@@@
 
@@ -546,6 +724,10 @@ Map takes two types and produces a concrete type
 def flatMap(f: A => Future[B]): Future[B]
 ```
 
+```scala
+def map(f: A => B): Future[B]
+```
+
 @@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #save .fragment }
 
 @@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #full .fragment }
@@ -555,6 +737,8 @@ def flatMap(f: A => Future[B]): Future[B]
 * Async
 * Not using exceptions
 * Popular libraries in Scala for doing this type of function composition
+* Very common pattern
+* Java's optional and completable future have these methods
 
 @@@@
 
@@ -578,7 +762,7 @@ Notes
 f: A => Future[B]
 g: B => Future[C]
 
-g <=< g : A => Future[C]
+g <=< f : A => Future[C]
 
 lift(fa: A => B): Future[A] => Future[B]
 
@@ -634,6 +818,15 @@ Notes
 
 http://batey.info/???
 
+@@@@notes
+
+* Each of these sections could be an hour
+* If any of that previous section didn't make sense
+    * Takeaway: You can write code will work with different types of wrappers
+    * We'll see how we can implicitly convert between the "wrapper" types
+
+@@@@
+
 @@@
 
 @@@section
@@ -648,6 +841,13 @@ http://batey.info/???
 
 @span[Many sensible uses of implicits replace reflection]
 @span[Reflection is more implicit than implicits!!] { .fragment }
+
+@@@@notes
+
+You learn how each implicit feature works once
+Rather than proprietary framework features
+
+@@@@
 
 @@@
 
@@ -676,17 +876,38 @@ http://batey.info/???
 @@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #clean .fragment }
 @@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #ruby .fragment }
 
+@@@@notes
+
+In a static language, no no no
+If this is too abstract, let's take a look at Ruby
+
+@@@@
+
 @@@
 
 @@@section
 
 <img src="images/ruby1.jpeg" style="width: 500px;"/>
 
+@@@@notes
+
+Right mind
+Awww
+Consulted
+
+@@@@
+
 @@@
 
 @@@section
 
 <img src="images/bella1.jpeg" style="width: 700px;"/>
+
+@@@@notes
+
+Not amused
+
+@@@@
 
 @@@
 
@@ -779,10 +1000,23 @@ Notes
 
 @@@
 
+
+@@@section
+
+### Summary
+
+1. Programming Language
+1. Function composition instead of layers
+1. Abstracting over higher kinded types
+1. Compile time implicits vs runtime reflection
+
+@@@
+
 @@@section
 
 Guidelines for a successful Scala project
 
+* Be prepared to be a beginner
 * Pick a programming paradigm
 * Pick a style guideline
 * Pick a DI style
@@ -794,17 +1028,6 @@ Guidelines for a successful Scala project
 * Wart remover
 
 @@@@
-
-@@@
-
-@@@section
-
-### Summary
-
-1. Programming Language
-1. Function composition instead of layers
-1. Abstracting over higher kinded types
-1. Compile time implicits vs runtime reflection
 
 @@@
 
