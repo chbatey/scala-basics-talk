@@ -2,8 +2,11 @@
 
 ### Scala: Beyond the basics
 
-##### Christopher Batey 
-##### @chbatey 
+##### Christopher Batey (@chbatey)
+##### Software Engineer on Akka Team
+
+@@@@notes
+@@@@
 
 @@@
 
@@ -30,11 +33,10 @@ Agenda:
 1. Abstracting over higher kinded types
 1. Compile time implicits vs runtime reflection
 
-Things I would have liked to covered:
-
 @@@@notes
 
 What to expect
+
 * Increasingly more complex
 * Scala being a hybrid language really excels
 * I used to say you wrote two kinds of Scala
@@ -170,6 +172,23 @@ What does this evaluate to in Scala?
 
 @@@@notes
 
+Huge ramifications
+Mutability
+
+@@@@
+
+@@@
+
+@@@section
+
+### Expressions
+
+What does this evaluate to in Scala?
+
+@@snip[x]($root$/src/main/scala/expressions/ControlFlow.scala){#if-assign}
+
+@@@@notes
+
 Notes
 
 @@@@
@@ -181,6 +200,12 @@ Notes
 @span[`Statements have side effects`]
 
 @span[`Expressions evaluate to values`]{ .fragment }
+
+@@@@notes
+
+* Hrmm 
+
+@@@@
 
 @@@
 
@@ -287,10 +312,11 @@ http://batey.info/fs-function-composition
 
 @@@@notes
 
-Realistic example
-Case classes change the way people program
-Being flexible with class location in files
-See whole domain in a page
+* Type alias
+* Realistic example
+* Case classes change the way people program
+* Being flexible with class location in files
+* See whole domain in a page
 
 @@@@
 
@@ -306,6 +332,7 @@ See whole domain in a page
 * Layered appraoch
 * DI
 * Mocking between abstraction layers
+* Repo function has a side effect
 
 @@@@
 
@@ -340,6 +367,12 @@ See whole domain in a page
 @@snip[x]($root$/src/main/java/djava/layers/LayersVsComposition.java){ #multiply .fragment }
 @@snip[x]($root$/src/main/java/djava/layers/LayersVsComposition.java){ #multiply10 .fragment }
 @@snip[x]($root$/src/main/java/djava/layers/LayersVsComposition.java){ #composition .fragment }
+
+@@@@notes
+
+* Wiring your self again
+
+@@@@
 
 @@@
 
