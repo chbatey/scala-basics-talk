@@ -6,6 +6,9 @@
 ##### Software Engineer on Akka Team
 
 @@@@notes
+
+* Something
+
 @@@@
 
 @@@
@@ -209,7 +212,7 @@ Notes
 
 @@@
 
-@@@secction
+@@@section
 
 ### Expressions
 
@@ -245,21 +248,6 @@ Notes
 
 A language's default for this is important
 simplicity is subjective
-
-@@@@
-
-@@@
-
-@@@section
-
-## Immutability
-
-* Object orientation. Abstract data, provide behaviour.
-* Functional. Immutable data. Abstract functions.
-
-@@@@notes
-
-OO immutable is fine
 
 @@@@
 
@@ -342,8 +330,9 @@ http://batey.info/fs-function-composition
 
 ## Do it yourself wiring
 
-@@@@Notes
+@@@@notes
 
+* DI framework wire deps but not callsj
 * You then feel obliged to test it
 * Regardless of paradigm use language features rather than writing boiler plate
 
@@ -1061,6 +1050,12 @@ Guidelines for a successful Scala project
 * Wart remover
 
 @@@@
+
+@@@
+
+@@@section
+
+## Thanks for listening!
 
 @@@
 
