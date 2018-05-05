@@ -40,6 +40,7 @@ Agenda:
 
 What to expect
 
+* Run through each then:
 * Increasingly more complex
 * Scala being a hybrid language really excels
 * I used to say you wrote two kinds of Scala
@@ -64,6 +65,8 @@ I am sorry :(
 
 @@@@notes
 
+* Declarative vs imperative programming
+* Internal vs external iteration
 * Akka can be very functional/immutable and drop down to imperative
 * Vocal pure FP ppl who wish Scala was Haskell
 * Only using it as a "better java". Maybe kotlin is a better?
