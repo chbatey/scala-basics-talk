@@ -7,7 +7,9 @@
 
 @@@@notes
 
-* Something
+* Theme: relying on language and compiler
+* Example: HTTP request
+* Examples from Lightbend and Pre-lightbend
 
 @@@@
 
@@ -21,7 +23,10 @@ Open Source toolkit for building Concurrent, Distributed, Resilient Message-Driv
 
 @@@@notes
 
-Wakka
+* Actor model + distributed systems tool kit
+* Written in Scala
+* Java and Scala API
+* Recent: Abstract type members
 
 @@@@
 
@@ -31,31 +36,23 @@ Wakka
 
 Agenda:
 
-1. Programming Languages
+1. Programming language terminology
 1. Function composition instead of layers
 1. Abstracting over higher kinded types
 1. Compile time implicits vs runtime reflection
 
 @@@@notes
 
-What to expect
+* Jargon
+* Structuring apps, DI
+* Async programming with higher kinded types
+* Implicits wonderful but misused
 
-* Run through each then:
 * Increasingly more complex
-* Scala being a hybrid language really excels
-* I used to say you wrote two kinds of Scala
 * A huge use case becoming popular in Java, async programming
 
 
-
 @@@@
-
-@@@
-
-@@@section
-
-Disclaimer: I do not have a PhD in type theory. If I misuse terms
-I am sorry :(
 
 @@@
 
@@ -71,6 +68,7 @@ I am sorry :(
 * Vocal pure FP ppl who wish Scala was Haskell
 * Only using it as a "better java". Maybe kotlin is a better?
 * Unique features. path dependent types, implicits
+* I used to say you wrote two kinds of Scala
 
 @@@@
 
@@ -203,34 +201,6 @@ Notes
 
 @@@section
 
-@span[`Statements have side effects`]
-
-@span[`Expressions evaluate to values`]{ .fragment }
-
-@@@@notes
-
-* Hrmm 
-
-@@@@
-
-@@@
-
-@@@section
-
-### Expressions
-
-@@snip[x]($root$/src/main/scala/expressions/ControlFlow.scala){#if-assign}
-
-@@@@notes
-
-Notes
-
-@@@@
-
-@@@
-
-@@@section
-
 ### Expressions
 
 @@snip[x]($root$/src/main/scala/expressions/ControlFlow.scala){#if-short}
@@ -238,6 +208,20 @@ Notes
 @@@@notes
 
 Notes
+
+@@@@
+
+@@@
+
+@@@section
+
+@span[`Statements have side effects`]
+
+@span[`Expressions evaluate to values`]{ .fragment }
+
+@@@@notes
+
+* Hrmm 
 
 @@@@
 
@@ -590,8 +574,6 @@ This happens when we "partially apply it"
 
 # Higher kinded types
 
-http://batey.info/???
-
 @@@@notes
 
 * Abstracting over them is an advanced feature
@@ -841,8 +823,6 @@ Notes
 
 # Implicits
 
-http://batey.info/???
-
 @@@@notes
 
 * Each of these sections could be an hour
@@ -850,13 +830,9 @@ http://batey.info/???
     * Takeaway: You can write code will work with different types of wrappers
     * We'll see how we can implicitly convert between the "wrapper" types
 
+* Few optional sections
+
 @@@@
-
-@@@
-
-@@@section
-
-## Which implicit feature don't you like?
 
 @@@
 
@@ -871,23 +847,6 @@ http://batey.info/???
 
 You learn how each implicit feature works once
 Rather than proprietary framework features
-
-@@@@
-
-@@@
-
-@@@section
-
-## Implicit parameters
-
-@@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-implicit }
-@@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-implicit-use .fragment }
-@@snip[x]($root$/src/main/scala/layers/WebRequestRealistic.scala){ #data-access-implicit-define .fragment }
-
-@@@@notes
-
-* Spark uses this for the SparkContext
-* ActorMaterializer
 
 @@@@
 
@@ -963,7 +922,6 @@ Not amused
 
 @@@section
 
-
 @@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #mappable }
 @@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #future-mappable .fragment }
 @@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #cf-mappable .fragment }
@@ -972,54 +930,6 @@ Not amused
 
 * Trait that is only converted to implicitly.
 * Find all instances
-
-@@@@
-
-@@@
-
-@@@section
-
-### Implicit evidence
-
-@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #request-before .fragment }
-
-@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #api-example .fragment }
-
-@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #execute .fragment }
-
-
-@@@@notes
-
-* Grpc, single input type "message"
-
-@@@@
-
-@@@
-
-@@@section
-
-@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #request-before-unit  }
-@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #request-before-no-param .fragment }
-
-@@@@notes
-
-Notes
-
-@@@@
-
-@@@
-
-@@@section
-
-@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #request-type  }
-
-@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #no-compile .fragment  }
-
-@span[`Cannot prove that String =:= Unit. liftedCall.invoke()`] { .fragment }
-
-@@@@notes
-
-Notes
 
 @@@@
 
@@ -1076,6 +986,53 @@ Akka
 Tweet
 : [@chbatey](https://twitter.com/chbatey)
 
+@@@
+
+@@@section
+
+### Implicit evidence
+
+@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #request-before .fragment }
+
+@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #api-example .fragment }
+
+@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #execute .fragment }
+
+
+@@@@notes
+
+* Grpc, single input type "message"
+
+@@@@
+
+@@@
+
+@@@section
+
+@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #request-before-unit  }
+@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #request-before-no-param .fragment }
+
+@@@@notes
+
+Notes
+
+@@@@
+
+@@@
+
+@@@section
+
+@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #request-type  }
+
+@@snip[x]($root$/src/main/scala/implicits/Constraints.scala){ #no-compile .fragment  }
+
+@span[`Cannot prove that String =:= Unit. liftedCall.invoke()`] { .fragment }
+
+@@@@notes
+
+Notes
+
+@@@@
 
 @@@
 

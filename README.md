@@ -21,11 +21,9 @@ as a separate deliverable if it proves useful. The reveal.js theme in
 
 ## TODO
 
-Maybe not include of these:
-* Example of OO vs FP
-* Example of parametric polymorphism
-
 Possible extras:
+* Existential types
+  - Abstract type members vs type parameters
 * Maths implicit example
 * Dependently pathed types
 * Dependent types
