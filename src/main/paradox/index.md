@@ -758,9 +758,7 @@ def map(f: A => B): Future[B]
 f: A => Future[B]
 g: B => Future[C]
 
-g <=< f : A => Future[C]
-
-lift(fa: A => B): Future[A] => Future[B]
+g superCompose f : A => Future[C]
 
 ```
 
@@ -780,7 +778,11 @@ Notes
 
 ### Ready to do all this again with Either?
 
-@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #abstracted .fragment }
+@@@
+
+@@@section
+
+@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #abstracted }
 @@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #mappable .fragment }
 
 @@@@notes
@@ -951,8 +953,6 @@ Guidelines for a successful Scala project
 * Be prepared to be a beginner
 * Pick a programming paradigm
 * Pick a style guideline
-* Pick a DI style
-* Include static analysis
 
 @@@@notes
 
