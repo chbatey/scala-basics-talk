@@ -44,7 +44,7 @@ object ErrorHandling {
 
     //#save
     val customerSaved: HttpRequest => Future[Customer] = hr =>
-        fstStep(hr).flatMap(saveCustomer)
+      fstStep(hr).flatMap(saveCustomer)
     //#save
 
     //#full
@@ -71,21 +71,71 @@ object ErrorHandling {
   }
   //#mappable
 
+  object Mappable {
+    def apply[F[_]](implicit ev: Mappable[F]): Mappable[F] = ev
+
+    implicit class MappableOps[F[_] : Mappable, A](f: F[A]) {
+      def map[B](fab: A => B): F[B] = Mappable[F].map(f)(fab)
+      def flatMap[B](fab: A => F[B]): F[B] = Mappable[F].flatMap(f)(fab)
+    }
+  }
+
+  import implicits.PrincipledTypeConversion._
+  import Mappable._
+
   //#abstracted
-  class Abstracted[F[_] : Mappable] {
+  abstract class Abstracted[F[_] : Mappable] {
     def serialiseCustomer: Customer => HttpResponse = ???
     def deSerialisePerson: HttpRequest => Person = ???
     def createCustomer: Person => F[Customer] = ???
     def saveCustomer: Customer => F[Customer] = ???
+    //#abstracted
+    val mappable = Mappable[F]
+
+    //#first-bit
+    val first: HttpRequest => F[Customer] =
+      deSerialisePerson andThen
+        createCustomer
+    //#first-bit
+
+    //#full-request
+    val fullRequest: HttpRequest => F[HttpResponse] = hr =>
+      first(hr)
+        .flatMap(saveCustomer)
+        .map(serialiseCustomer)
+
+    //#full-request
+
+    {
+      val doAFlatMap = (hr: HttpRequest) =>
+        mappable.flatMap(first(hr))(saveCustomer)
+
+      val doAMap: HttpResponse => F[HttpResponse] = (hr: HttpResponse) =>
+        mappable.map(doAFlatMap(hr))(serialiseCustomer)
+    }
+
+    // Or via a for comprehension
+    {
+      val first: HttpRequest => F[Customer] = deSerialisePerson andThen createCustomer
+
+      val fullRequestForComp: HttpRequest => F[HttpResponse] = (hr: HttpRequest) =>
+        for {
+          customer <- first(hr)
+          _ <- saveCustomer(customer)
+        } yield serialiseCustomer(customer)
+
+    }
+
+
+    //#abstracted
   }
   //#abstracted
 
-  //#full-request-function
-  //  val registerCustomer: WebRequest =
-  //    deSerialisePerson andThen
-  //      createCustomer andThen
-  //      saveCustomer andThen
-  //      serialiseCustomer
-  //#full-request-function
+  //#usage
+  val withAFuture = new Abstracted[Future] {}
+  val whatTypeIsThis: HttpRequest => Future[HttpResponse] =
+    withAFuture.fullRequest
+  //#usage
+
 
 }

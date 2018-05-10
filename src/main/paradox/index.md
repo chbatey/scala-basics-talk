@@ -56,6 +56,20 @@ Agenda:
 
 @@@
 
+
+@@@section
+
+## 1.Programming Languages 
+
+@@@@notes
+
+Starting off really simple
+Semantics vs syntax
+
+@@@@
+
+@@@
+
 @@@section
 
 ## Scala is a Hybrid Functional / OO language
@@ -69,19 +83,6 @@ Agenda:
 * Only using it as a "better java". Maybe kotlin is a better?
 * Unique features. path dependent types, implicits
 * I used to say you wrote two kinds of Scala
-
-@@@@
-
-@@@
-
-@@@section
-
-## 1.Programming Languages 
-
-@@@@notes
-
-Starting off really simple
-Semantics vs syntax
 
 @@@@
 
@@ -753,18 +754,6 @@ def map(f: A => B): Future[B]
 
 @@@section
 
-@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #full2 }
-
-@@@@notes
-
-Notes
-
-@@@@
-
-@@@
-
-@@@section
-
 ```scala
 f: A => Future[B]
 g: B => Future[C]
@@ -799,6 +788,14 @@ Notes
 Notes
 
 @@@@
+
+@@@
+
+@@@section
+
+@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #first-bit }
+@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #full-request .segment }
+@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #usage .segment }
 
 @@@
 
@@ -922,7 +919,7 @@ Not amused
 
 @@@section
 
-@@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #mappable }
+@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #mappable }
 @@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #future-mappable .fragment }
 @@snip[x]($root$/src/main/scala/implicits/ImplicitTypeConversions.scala){ #cf-mappable .fragment }
 

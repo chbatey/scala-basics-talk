@@ -2,6 +2,8 @@ package implicits
 
 import java.util.concurrent.CompletableFuture
 
+import higherkinds.ErrorHandling.Mappable
+
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -31,12 +33,6 @@ object ImplicitTypeConversions {
 }
 
 object PrincipledTypeConversion {
-   //#mappable
-  trait Mappable[F[_]] {
-    def map[A, B](fa: F[A])(f: A => B): F[B]
-    def flatMap[A, B](fa: F[A])(f: A => F[B]): F[B]
-  }
-  //#mappable
 
   //#future-mappable
   implicit def futureMappable = new Mappable[Future] {
