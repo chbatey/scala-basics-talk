@@ -471,7 +471,7 @@ Assuming implemented how do we structure our app now?
 @@@section
 
 @@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){ #full-request-function }
-@@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){#web-request}
+@@snip[x]($root$/src/main/scala/layers/LayersVsComposition.scala){ #web-request }
 
 @@@@notes
 
@@ -796,8 +796,8 @@ Notes
 @@@section
 
 @@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #first-bit }
-@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #full-request .segment }
-@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #usage .segment }
+@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #full-request .fragment }
+@@snip[x]($root$/src/main/scala/higherkinds/ErrorHandling.scala){ #usage .fragment }
 
 @@@
 
