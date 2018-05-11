@@ -19,6 +19,8 @@ The paradox theme in `src/main/paradox/_theme` formats the output as a
 as a separate deliverable if it proves useful. The reveal.js theme in
 `src/main/paradox/_template/css/theme/akka.css adds some Akka fonts and colors.
 
+A pre-built version of the slide are [here](http://batey.info/talks/scala-basics/#/)
+
 ## TODO
 
 Possible extras:
